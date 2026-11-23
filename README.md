@@ -4,6 +4,12 @@ Hands-on files for the reinforcement learning workshop with the University of Bi
 
 You'll train an AI agent to solve the grid game from the talk. Then you'll steer it, and break it, by changing only its rewards. You only edit a few numbers. No machine learning background needed.
 
+<p align="center">
+  <img src="docs/gridlab.gif" alt="An agent trained with Q-learning walks from the start square S, past the lava, to goal B" width="480">
+</p>
+
+**Slides:** will be added here after the session.
+
 ## 1. Get the files
 
 Click the green **Code** button above, then **Download ZIP**, and unzip it. Or:
@@ -28,7 +34,8 @@ python smoke_test.py             # a grid window flashes up, then: ALL GOOD
 
 - **macOS:** if `python` isn't found, use `python3` for the commands before activating. After activating, `python` works.
 - **Windows:** if `python` opens the Microsoft Store, use `py -3.12 -m venv .venv` instead. You need Python 3.10 or newer (3.11 or 3.12 recommended).
-- **WSL:** the smoke test may fail because there's no window. That's fine. Set `WATCH = False` in the scripts.
+- **WSL or no window:** the smoke test says `ALL GOOD (without a window)`. That's fine. Set `WATCH = False` in the scripts.
+- Tested with Python 3.12, Gymnasium 1.4 and NumPy 2.5 on macOS.
 
 More detail, including installing Python, is in the one-page [setup guide](docs/rl_handson_setup_guide.pdf).
 
@@ -71,6 +78,7 @@ Three agents train each time, and the mission only counts if **all three** succe
 - Beat each mission with the **smallest** change you can find.
 - In `q_learn.py`, try `ENV = "FrozenLake"` with `ENV_KWARGS = {"desc": MY_MAP, "is_slippery": True}`. Design your own map in `MY_MAP`. How many games does slippery ice need?
 - Change one line in `q_learn.py` so the Bellman target uses the move the agent will *actually* take next, not the best move. (That's an algorithm called SARSA.) Does it still hug the cliff edge?
+- In `q_learn.py`, `STEP_BONUS` adds the same reward to every step. On FrozenLake, try `STEP_BONUS = -0.01` and then `-0.1`, with and without slippery ice. Predict first: does a cost per step make it hurry to the goal, or does it find a loophole?
 - Deep RL: unit 1 of the [Hugging Face Deep RL course](https://huggingface.co/learn/deep-rl-course/en/unit1/hands-on), in its Colab notebook.
 
 ## Common problems
@@ -82,3 +90,9 @@ Three agents train each time, and the mission only counts if **all three** succe
 | `Couldn't open a window` / no window appears | Set `WATCH = False`. Everything still prints in the terminal |
 | `'X' is locked in this mission` | That setting can't change in this mission. Remove it from `CHANGES` |
 | PowerShell won't run `activate` | `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`, or use cmd |
+
+## About
+
+Made by [Aju Ani Justus](https://ajuanijustus.com), PhD student in Computer Science at the University of Birmingham, working on multi-agent reinforcement learning. Questions or ideas: [LinkedIn](https://linkedin.com/in/ajuanijustus).
+
+Released under the [MIT licence](LICENSE).
