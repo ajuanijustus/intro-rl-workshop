@@ -123,7 +123,7 @@ class GridLab(_Base):
                 rect = pygame.Rect(c * cell, r * cell, cell, cell)
                 pygame.draw.rect(self._window, colours[ch], rect)
                 pygame.draw.rect(self._window, (200, 200, 200), rect, 1)
-                if ch in "ABCS*":
+                if ch in "ABCS*L":
                     label = self._font.render(ch, True, (30, 30, 30))
                     self._window.blit(label, label.get_rect(center=rect.center))
         r, c = self.pos
