@@ -51,15 +51,17 @@ The agent practises Cliff Walker for 500 games, prints its plan as arrows, then 
 
 Now change **one** setting at a time in the `TWEAK THESE` block at the top. **Write down what you predict first**, then run it and read the TEST RUN line:
 
-| Change | What do you predict? |
-|---|---|
-| `EPSILON = 0` | |
-| `EPSILON = 1` | |
-| `GAMMA = 0` | |
-| `ALPHA = 0.01` | |
-| `EPISODES = 20` | |
+| Change this | What do you predict? | What happened? (TEST RUN line) |
+|---|---|---|
+| `EPSILON = 0` | | |
+| `EPSILON = 1` | | |
+| `GAMMA = 0` | | |
+| `ALPHA = 0.01` | | |
+| `EPISODES = 20` | | |
 
 Set each one back before trying the next.
+
+This table is also a one-page printable worksheet: [`docs/warmup_worksheet.pdf`](docs/warmup_worksheet.pdf) (A4). Running this workshop yourself? Print one per student or pair as a handout.
 
 ## 4. Reward-design missions: `missions.py`
 
