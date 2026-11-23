@@ -5,13 +5,8 @@ You don't need to edit this file. Edit missions.py instead.
 import time
 import numpy as np
 
-try:  # Gymnasium is the standard RL environment API; we follow it here.
-    import gymnasium as gym
-    from gymnasium import spaces
-    _Base = gym.Env
-except ImportError:  # still works without it, just without the official base class
-    gym, spaces = None, None
-    _Base = object
+import gymnasium as gym  # the standard RL environment API; GridLab follows it
+from gymnasium import spaces
 
 # --------------------------------------------------------------------------
 # The map. Edges are walls.
@@ -29,11 +24,7 @@ ARROWS = "^>v<"
 DEFAULT_REWARDS = {"A": 1.0, "B": 1.0, "C": 1.0, "lava": -1.0, "breadcrumb": 0.0, "step": 0.0}
 
 
-class _Discrete:  # stand-in for gymnasium.spaces.Discrete if gymnasium is missing
-    def __init__(self, n): self.n = n
-
-
-class GridLab(_Base):
+class GridLab(gym.Env):
     """Goals A, B, C end the episode (unless a goal is made a checkpoint).
     Lava ends the episode. A breadcrumb pays out every time you step on it."""
     metadata = {"render_modes": ["human", "ansi"], "render_fps": 4}
@@ -46,14 +37,14 @@ class GridLab(_Base):
         self.remember = remember_checkpoint           # adds "have I visited the checkpoint?" to the state
         self.start = tuple(np.argwhere(self.grid == "S")[0])
         n_cells = self.rows * self.cols
-        S = _Discrete if spaces is None else spaces.Discrete
-        self.observation_space = S(n_cells * (2 if self.remember else 1))
-        self.action_space = S(4)
+        self.observation_space = spaces.Discrete(n_cells * (2 if self.remember else 1))
+        self.action_space = spaces.Discrete(4)
         self.render_mode = render_mode
         self._window = None
 
     # ----- Gymnasium API ---------------------------------------------------
     def reset(self, seed=None, options=None):
+        super().reset(seed=seed)
         self.pos, self.visited = self.start, False
         return self._obs(), {}
 
@@ -66,7 +57,8 @@ class GridLab(_Base):
         cell = self.grid[self.pos]
         reward, terminated = self.rewards["step"], False
         if cell == "L":
-            reward += self.rewards["lava"]; terminated = True
+            reward += self.rewards["lava"]
+            terminated = True
         elif cell == "*":
             reward += self.rewards["breadcrumb"]
         elif cell in "ABC":
@@ -75,7 +67,8 @@ class GridLab(_Base):
                     reward += self.rewards[cell]
                 self.visited = True
             else:
-                reward += self.rewards[cell]; terminated = True
+                reward += self.rewards[cell]
+                terminated = True
         if self.render_mode == "human":
             self.render()
         return self._obs(), reward, terminated, False, {"cell": cell}
@@ -113,7 +106,8 @@ class GridLab(_Base):
             self._font = pygame.font.SysFont(None, 48)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.close(); return None
+                self.close()
+                return None
         colours = {"#": (60, 60, 60), "L": (230, 90, 40), "A": (90, 160, 240), "B": (120, 200, 120),
                    "C": (240, 200, 70), "*": (250, 240, 200), ".": (245, 245, 245), "S": (245, 245, 245)}
         self._window.fill((255, 255, 255))
@@ -134,7 +128,8 @@ class GridLab(_Base):
     def close(self):
         if self._window is not None:
             import pygame
-            pygame.display.quit(); pygame.quit()
+            pygame.display.quit()
+            pygame.quit()
             self._window = None
 
 
