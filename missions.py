@@ -22,7 +22,7 @@ MISSION = 1
 
 CHANGES = {
     # Put your changes here, e.g.
-    # "B": 3.0,
+    # "B": 2.0,
 }
 
 WATCH = True   # show the trained agent in a window (set to False if no window appears)
