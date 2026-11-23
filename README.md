@@ -83,6 +83,11 @@ Three agents train each time, and the mission only counts if **all three** succe
 - In `q_learn.py`, `STEP_BONUS` adds the same reward to every step. On FrozenLake, try `STEP_BONUS = -0.01` and then `-0.1`, with and without slippery ice. Predict first: does a cost per step make it hurry to the goal, or does it find a loophole?
 - Deep RL: unit 1 of the [Hugging Face Deep RL course](https://huggingface.co/learn/deep-rl-course/en/unit1/hands-on), in its Colab notebook.
 
+## Stuck, or after the session?
+
+- [`docs/warmup_and_missions_explained.pdf`](docs/warmup_and_missions_explained.pdf) explains what happens in the warm-up and how to solve every mission, with hints before each answer, plus more to try at home (your own FrozenLake maps, slippery ice, a safer SARSA agent, Taxi). **Spoilers**, so give each mission a proper go first.
+- `python bonus_reveal.py` shows why mission 6 can't be solved, and how one extra piece of memory fixes it.
+
 ## Common problems
 
 | Problem | Fix |
