@@ -8,7 +8,7 @@ You'll train an AI agent to solve the grid game from the talk. Then you'll steer
   <img src="docs/gridlab.gif" alt="An agent trained with Q-learning walks from the start square S, past the lava, to goal B" width="480">
 </p>
 
-**Slides:** will be added here after the session.
+**Slides:** [`docs/slides.pdf`](docs/slides.pdf). Faded slides marked "hidden" weren't shown in the talk, but they include the warm-up answers.
 
 ## 1. Get the files
 
